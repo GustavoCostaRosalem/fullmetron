@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>login sistem</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        background-color: #121212;
+        color: white;
+        font-family: "Courier New", monospace;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .video-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Faz o vídeo preencher o fundo corretamente */
+        z-index: -1; /* Coloca o vídeo no fundo */
+      }
+
+      .glitch-container {
+        position: relative;
+        z-index: 1;
+      }
+
+      .glitch {
+        font-size: 3em;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: center;
+      }
+
+      .glitch::after {
+        content: attr(data-glitch);
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: rgba(255, 255, 255, 0.2);
+        text-shadow: 0 0 5px rgba(255, 0, 0, 0.5), 0 0 10px rgba(255, 0, 0, 0.7),
+          0 0 20px rgba(255, 0, 0, 1);
+        mix-blend-mode: difference;
+        animation: glitch-fade 6s infinite;
+      }
+
+      @keyframes glitch-fade {
+        0% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        50% {
+          opacity: 0.2;
+          transform: translateY(10px);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+      }
+
+      .gradual-show {
+        opacity: 0;
+        animation: fadeIn 1s forwards;
+      }
+
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      .content {
+        display: none;
+        text-align: center;
+        margin-top: 20px;
+      }
+      #d-lg {
+        background-color: rgb(18, 18, 18);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- video bg -->
+    <video class="video-background" autoplay loop muted>
+      <source src="./img/100493-656497720_small.mp4" type="video/mp4" />
+      Seu navegador não suporta vídeos HTML5.
+    </video>
+    <!-- intro glt -->
+    <div class="glitch-container">
+      <div class="glitch" data-glitch="Iniciando...">Iniciando...</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+    <script>
+      const textElement = document.querySelector(".glitch");
+      const glitchCharacters = [
+        "|",
+        "/",
+        "\\",
+        "_",
+        ">",
+        "<",
+        "X",
+        "°",
+        "!",
+        "@",
+        "#",
+      ];
+
+      function glitchEffect() {
+        let currentText = textElement.innerText;
+        let glitchChar =
+          glitchCharacters[Math.floor(Math.random() * glitchCharacters.length)];
+        let index = Math.floor(Math.random() * currentText.length);
+
+        textElement.innerText =
+          currentText.slice(0, index) +
+          glitchChar +
+          currentText.slice(index + 1);
+      }
+
+      let glitchInterval;
+
+      setTimeout(() => {
+        glitchInterval = setInterval(() => {
+          glitchEffect();
+        }, 23); // A cada 23ms o efeito é ativado rapidamente
+      }, 3000); // Aguarda 3 segundo antes de começar o efeito
+
+      // Pausa o efeito de glitch
+      setTimeout(() => {
+        clearInterval(glitchInterval);
+      }, 5800); //efeito para na quantia indicada
+
+      // Mostra o conteúdo após 6 segundos
+      setTimeout(() => {
+        textElement.style.opacity = "0"; // Diminui a opacidade do texto de "Iniciando..."
+        setTimeout(() => {
+          textElement.remove(); // Remove o elemento após a animação
+          const contentElement = document.querySelector(".content");
+          contentElement.style.display = "block";
+          contentElement.classList.add("gradual-show");
+        }, 500); // Aguarda um pouco para remover o texto
+      }, 6000); // Após 6 segundos o conteúdo é revelado e exibido
+    </script>
+
+    <div
+      class="content container form-group border border-light p-2 w-auto h-auto rounded"
+    >
+      <p class="m-2">faca seu login para entrar no site</p>
+      <input
+        type="text"
+        class="form-control p-auto mx-auto row"
+        placeholder="usuario"
+        id="usr"
+      /><label for="" class="light"></label
+      ><input
+        type="password"
+        class="form-control p-auto mx-auto row"
+        placeholder="senha"
+        id="snh"
+      /><label for="" class="light"></label
+      ><button
+        type="submit"
+        class="btn btn-light btn-outline-success btn-group-toggle justify-content-center mt-3"
+      >
+        login ?
+      </button>
+      <div class="row"></div>
+      <button
+        type="submit"
+        class="btn btn-light btn-outline-primary btn-group-toggle mt-1"
+        id="cadsbtn"
+      >
+        cadastrar ?
+      </button>
+      <script src="./main.js"></script>
+    </div>
+  </body>
+</html>
