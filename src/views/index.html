@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>login sistem</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="../public/styles.css"
+  </head>
+  <body>
+    <!-- video bg -->
+    <video class="video-background" autoplay loop muted>
+      <source src="../public/img/100493-656497720_small.mp4" type="video/mp4" />
+      Seu navegador não suporta vídeos HTML5.
+    </video>
+    <!-- intro glt -->
+    <div class="glitch-container">
+      <div class="glitch" data-glitch="Iniciando...">Iniciando...</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+    <script>
+      const textElement = document.querySelector(".glitch");
+      const glitchCharacters = [
+        "|",
+        "/",
+        "\\",
+        "_",
+        ">",
+        "<",
+        "X",
+        "°",
+        "!",
+        "@",
+        "#",
+      ];
+
+      function glitchEffect() {
+        let currentText = textElement.innerText;
+        let glitchChar =
+          glitchCharacters[Math.floor(Math.random() * glitchCharacters.length)];
+        let index = Math.floor(Math.random() * currentText.length);
+
+        textElement.innerText =
+          currentText.slice(0, index) +
+          glitchChar +
+          currentText.slice(index + 1);
+      }
+
+      let glitchInterval;
+
+      setTimeout(() => {
+        glitchInterval = setInterval(() => {
+          glitchEffect();
+        }, 23); // A cada 23ms o efeito é ativado rapidamente
+      }, 3000); // Aguarda 3 segundo antes de começar o efeito
+
+      // Pausa o efeito de glitch
+      setTimeout(() => {
+        clearInterval(glitchInterval);
+      }, 5800); //efeito para na quantia indicada
+
+      // Mostra o conteúdo após 6 segundos
+      setTimeout(() => {
+        textElement.style.opacity = "0"; // Diminui a opacidade do texto de "Iniciando..."
+        setTimeout(() => {
+          textElement.remove(); // Remove o elemento após a animação
+          const contentElement = document.querySelector(".content");
+          contentElement.style.display = "block";
+          contentElement.classList.add("gradual-show");
+        }, 500); // Aguarda um pouco para remover o texto
+      }, 6000); // Após 6 segundos o conteúdo é revelado e exibido
+    </script>
+
+    <div
+      class="content container form-group border border-light p-2 w-auto h-auto rounded"
+    >
+      <p class="m-2">faca seu login para entrar no site</p>
+      <input
+        type="text"
+        class="form-control p-auto mx-auto row"
+        placeholder="usuario"
+        id="usr"
+      /><label for="" class="light"></label
+      ><input
+        type="password"
+        class="form-control p-auto mx-auto row"
+        placeholder="senha"
+        id="snh"
+      /><label for="" class="light"></label
+      ><button
+        type="submit"
+        class="btn btn-light btn-outline-success btn-group-toggle justify-content-center mt-3"
+      >
+        login ?
+      </button>
+      <div class="row"></div>
+      <button
+        type="submit"
+        class="btn btn-light btn-outline-primary btn-group-toggle mt-1"
+        id="cadsbtn"
+      >
+        cadastrar ?
+      </button>
+      <script src="../public/main.js"></script>
+    </div>
+  </body>
+</html>
